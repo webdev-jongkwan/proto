@@ -1,0 +1,13 @@
+const express = require('express');
+const router = express.Router();
+
+// auth
+
+router.use('/category', require('../api/category'));
+
+router.use('/account', require('../api/account'));
+
+router.use('/journalizing', require('../api/journalizing'));
+
+
+module.exports = router;
