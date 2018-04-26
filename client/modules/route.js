@@ -88,7 +88,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, route
         resolve: {
             categoryList: function ($http, $q) {
                 let defer = $q.defer();
-                $http.get('/api/category').then(function (d) {
+                $http.get('/api/category/list').then(function (d) {
                     defer.resolve(d.data.categoryList);
                 }, function (e) {
                     defer.reject(e);

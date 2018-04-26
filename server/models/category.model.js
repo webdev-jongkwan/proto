@@ -15,6 +15,21 @@ module.exports.getList = function (params, callbackFunction) {
     })
 };
 
+module.exports.getList = function (params, callbackFunction) {
+    let resultObject = {};
+    mongooseCategory.find({}, function (err, categoryList) {
+        if (err) {
+            resultObject.success = false;
+            resultObject.message = err;
+            callbackFunction(resultObject);
+        } else {
+            resultObject.success = true;
+            resultObject.message = 'Succeed - get category list.';
+            callbackFunction(resultObject, categoryList);
+        }
+    })
+};
+
 module.exports.create = function (params, callbackFunction) {
     let resultObject = {};
 

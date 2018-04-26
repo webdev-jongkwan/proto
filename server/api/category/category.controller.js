@@ -24,6 +24,16 @@ module.exports.getOne = function (req, res) {
 
 };
 
+module.exports.updateOne = function (req, res) {
+    let params = {};
+    params.id = req.body.id;
+
+};
+
+module.exports.removeOne = function (req, res) {
+
+};
+
 module.exports.create = function (req, res) {
     let params = {};
     params.name = req.body.name;

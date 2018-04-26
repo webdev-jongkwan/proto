@@ -14,7 +14,7 @@ angular.module('app').controller('categoryCtrl', function ($scope, $http, catego
     };
 
     let getCategoryList = function () {
-        $http.get('/api/category').then(function (d) {
+        $http.get('/api/category/list').then(function (d) {
             $scope.categoryList = d.data.categoryList;
         });
     };
@@ -43,7 +43,7 @@ angular.module('app').controller('categoryCtrl', function ($scope, $http, catego
                 des: category.des
             };
 
-            $http.put('/category?id' + category.id, params).then(function (d) {
+            $http.put('/api/category?id=' + category.id, params).then(function (d) {
                 $scope.backUpData = {};
                 getCategoryList();
             });
@@ -51,7 +51,7 @@ angular.module('app').controller('categoryCtrl', function ($scope, $http, catego
     };
 
     $scope.removeCategory = function (category) {
-        $http.delete('/category?id=' + category.id).then(function (d) {
+        $http.delete('/api/category?id=' + category.id).then(function (d) {
             getCategoryList();
         });
     };
