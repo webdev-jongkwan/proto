@@ -20,17 +20,67 @@ module.exports.getList = function (req, res) {
     })
 };
 
-module.exports.getOne = function (req, res) {
-
-};
-
 module.exports.updateOne = function (req, res) {
     let params = {};
-    params.id = req.body.id;
+    params.id = req.params.id;
+    params.name = req.body.name;
+    params.des = req.body.des || '';
 
+    if (!params.id) {
+        return res.send({
+            success: false,
+            message: 'ID is required.'
+        });
+    } else if (!params.name) {
+        return res.send({
+            success: false,
+            message: 'Name is required.'
+        });
+    } else {
+        categoryModel.updateOne(params, function (resultObject, returnedCategory) {
+            if (returnedCategory) {
+                res.send({
+                    success: true,
+                    message: 'Succeed - updated one category.',
+                    category: returnedCategory
+                });
+            } else {
+                res.send({
+                    success: false,
+                    message: 'Failed - updated one category.',
+                    errMsg: resultObject
+                });
+            }
+        })
+    }
 };
 
 module.exports.removeOne = function (req, res) {
+    let params = {};
+    params.id = req.params.id;
+
+    if (!params.id) {
+        return res.send({
+            success: false,
+            message: 'ID is required.'
+        });
+    } else {
+        categoryModel.removeOne(params, function (resultObject, returnedCategory) {
+            if (returnedCategory) {
+                res.send({
+                    success: true,
+                    message: 'Succeed - remove one category.',
+                    category: returnedCategory
+                });
+            } else {
+                res.send({
+                    success: false,
+                    message: 'Failed - remove one category.',
+                    errMsg: resultObject
+                });
+            }
+        })
+    }
 
 };
 
@@ -56,21 +106,9 @@ module.exports.create = function (req, res) {
                 res.send({
                     success: false,
                     message: 'Failed - create new category.',
-                    errMsg: resultObject
+                    errMsg: resultObject.message
                 });
             }
         })
     }
-};
-
-module.exports.update = function (req, res) {
-
-};
-
-module.exports.delete = function (req, res) {
-
-};
-
-module.exports.deleteOne = function (req, res) {
-
 };

@@ -38,12 +38,12 @@ angular.module('app').controller('categoryCtrl', function ($scope, $http, catego
     $scope.updateCategory = function (category) {
         if (category.name) {
             let params = {
-                id: category.id,
+
                 name: category.name,
                 des: category.des
             };
 
-            $http.put('/api/category?id=' + category.id, params).then(function (d) {
+            $http.put('/api/category/' + category.id, params).then(function (d) {
                 $scope.backUpData = {};
                 getCategoryList();
             });
@@ -51,7 +51,7 @@ angular.module('app').controller('categoryCtrl', function ($scope, $http, catego
     };
 
     $scope.removeCategory = function (category) {
-        $http.delete('/api/category?id=' + category.id).then(function (d) {
+        $http.delete('/api/category/' + category.id).then(function (d) {
             getCategoryList();
         });
     };

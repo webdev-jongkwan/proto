@@ -63,9 +63,9 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, route
 
     $stateProvider.state({
         name: routeName.ACCOUNT,
-        url: 'category',
+        url: 'account',
         parent: routeName.INDEX,
-        templateUrl: 'modules/category/category.html',
+        templateUrl: 'modules/account/account.html',
         resolve: {
             // categoryList: function ($http, $q) {
             //     let defer = $q.defer();
@@ -77,7 +77,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, route
             //     return defer.promise;
             // }
         },
-        controller: 'categoryCtrl'
+        controller: 'accountCtrl'
     });
 
     $stateProvider.state({
