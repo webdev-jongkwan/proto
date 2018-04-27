@@ -27,5 +27,41 @@ angular.module('app').controller('accountCtrl', function ($scope, $http) {
             balance: '111 5'
         }
     ];
+
+    $scope.accountTypeList = [
+        {
+            id: 1,
+            name: '1',
+            des: '111'
+        },
+        {
+            id: 2,
+            name: '2',
+            des: '222'
+        },
+        {
+            id: 3,
+            name: '3',
+            des: '333'
+        },
+        {
+            id: 4,
+            name: '4',
+            des: '444'
+        },
+        {
+            id: 5,
+            name: '5',
+            des: '555'
+        }
+    ];
     console.log('accountCtrl')
+
+    $scope.goAccountDetail = function (account) {
+        console.log(account);
+    };
+
+    $scope.createAccount = function (account) {
+        console.log(account);
+    }
 });
