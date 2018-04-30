@@ -1,5 +1,5 @@
-angular.module('app').controller('categoryCtrl', function ($scope, $http, categoryList) {
-    console.log('categoryCtrl')
+angular.module('app').controller('CategoryCtrl', function ($scope, $http, categoryList) {
+    console.log('CategoryCtrl')
 
     $scope.categoryList = [];
     if (!_.isEmpty(categoryList)) {

@@ -7,6 +7,8 @@ router.use('/category', require('../api/category'));
 
 router.use('/account', require('../api/account'));
 
+router.use('/accountType', require('../api/accountType'));
+
 router.use('/journalizing', require('../api/journalizing'));
 
 

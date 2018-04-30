@@ -1,1 +1,1 @@
-angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap']);
+angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap', 'ngMaterial', 'ngMessages']);

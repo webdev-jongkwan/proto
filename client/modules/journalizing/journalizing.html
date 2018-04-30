@@ -1,1 +1,101 @@
 journalizing
+<div class="container">
+    <!--<div class="row">-->
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                        <md-datepicker ng-model="journalizing.date" md-placeholder="Date" md-hide-icons="calendar"></md-datepicker>
+
+                </div>
+                <div class="form-group col-md-6">
+
+                    <select class="form-control" ng-model="journalizing.account" ng-options="account.id as account.name for account in accountList"></select>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <select class="form-control" ng-model="journalizing.category" ng-options="category.id as category.name for category in categoryList"></select>
+            </div>
+            <div class="form-group">
+                <md-switch ng-model="journalizing.isIncome" aria-label="Switch 1"></md-switch>
+
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">City</label>
+                    <input type="number" class="form-control" id="inputCity" ng-model="journalizing.amount">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="inputZip">Zip</label>
+                    <input type="text" class="form-control" id="inputZip" ng-model="journalizing.des">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-click="post(journalizing)">Sign in</button>
+        </form>
+    <!--</div>-->
+
+    <div class="row">
+        table
+        graphshowModal
+        <div class="card bg-light" style="width: 100%;">
+            <div class="card-header">Header</div>
+            <div class="card-body">
+                <h5 class="card-title">Light card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+            <ul class="list-group list-group-flush" ng-repeat="journalizing in journalizingList track by $index">
+                <li class="list-group-item">
+                        <div class="col col-md-2">
+                            {{journalizing.createdAt}}
+                        </div>
+                    <div class="col col-md-1">
+                        {{journalizing.account}}
+                    </div>
+                    <div class="col col-md-1">
+                        {{journalizing.category}}
+                    </div>
+                    <div class="col col-md-1">
+                        {{journalizing.isIncome}}
+                    </div>
+                    <div class="col col-md-1">
+                        {{journalizing.amount}}
+                    </div>
+                    <div class="col col-md-1">
+                        {{journalizing.balance}}
+                    </div>
+                    <div class="col col-md-4">
+                        {{journalizing.des}}
+                    </div>
+                        <div class="col col-md-1 text-center">
+                            <button class="btn btn-outline-danger btn-sm" ng-click="removeCategory(item)">Remove</button>
+                        </div>
+                </li>
+            </ul>
+        </div>
+
+        <!--<div class="card text-white bg-dark" style="width: 100%; margin-top: 30px;">-->
+            <!--<div class="card-header">Header</div>-->
+            <!--<div class="card-body">-->
+                <!--<form>-->
+                    <!--<div class="form-row">-->
+                        <!--<div class="col col-md-4">-->
+                            <!--<input type="text" class="form-control" placeholder="Name" ng-model="category.name">-->
+                        <!--</div>-->
+                        <!--<div class="col col-md-7">-->
+                            <!--<input type="text" class="form-control" placeholder="Description" ng-model="category.des">-->
+                        <!--</div>-->
+                        <!--<div class="col col-md-1">-->
+                            <!--<button type="button" class="form-control btn btn-outline-light" ng-click="addCategory()">+</button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</form>-->
+
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+
+    <div class="row">
+        data list
+    </div>
+</div>

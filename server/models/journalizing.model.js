@@ -1,18 +1,80 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const autoIncrement = require('mongoose-auto-increment');
+let mongooseJournalizing = require('../schemas/journalizing');
 
-// 스키마 설정
-var journalizingSchema = new Schema({
-    account: {type: Schema.Types.ObjectId, ref: 'Account'},
-    category: {type: Schema.Types.ObjectId, ref: 'Category'},
-    sum: {type: Number, required: true, default: 0}, // 액수
-    income: {type: Boolean, required: true, default: true},
-    des : {type: String, required: true},
-    createdAt: {type: Date, default: Date.now},
-    updatedAt: Date
-});
+module.exports.getList = function (params, callbackFunction) {
+    let resultObject = {};
+    mongooseJournalizing.find({}, function (err, journalizingList) {
+        if (err) {
+            resultObject.success = false;
+            resultObject.message = err;
+            callbackFunction(resultObject);
+        } else {
+            resultObject.success = true;
+            resultObject.message = 'Succeed - get journalizing list.';
+            callbackFunction(resultObject, journalizingList);
+        }
+    })
+};
 
-module.exports = mongoose.model('Journalizing', journalizingSchema);
-autoIncrement.initialize(mongoose.connection);
-journalizingSchema.plugin(autoIncrement.plugin, { model: 'Journalizings', field: 'id', startAt: 1});
+// module.exports.updateOne = function (params, callbackFunction) {
+//     let resultObject = {};
+//     mongooseCategory.findOneAndUpdate({id: params.id}, {
+//         name: params.name,
+//         des: params.des
+//     }, function (err, category) {
+//         if (err) {
+//             resultObject.success = false;
+//             resultObject.message = err;
+//             callbackFunction(resultObject);
+//         } else {
+//             resultObject.success = true;
+//             resultObject.message = 'Succeed - update one category.';
+//             callbackFunction(resultObject, category);
+//         }
+//     })
+// };
+//
+// module.exports.removeOne = function (params, callbackFunction) {
+//     let resultObject = {};
+//     mongooseCategory.findOneAndRemove({id: params.id}, function (err, category) {
+//         if (err) {
+//             resultObject.success = false;
+//             resultObject.message = err;
+//             callbackFunction(resultObject);
+//         } else {
+//             resultObject.success = true;
+//             resultObject.message = 'Succeed - remove one category.';
+//             callbackFunction(resultObject, category);
+//         }
+//     })
+// };
+
+module.exports.create = function (params, callbackFunction) {
+    let resultObject = {};
+
+    const newJournalizing = new mongooseJournalizing;
+    params.account = req.body.account;
+    params.category = req.body.category;
+    params.amount = req.body.amount;
+    params.isIncome = req.body.isIncome;
+    params.balance = req.body.balance;
+    params.des = req.body.des;
+    newCategory.name = params.name;
+    newCategory.des = params.des;
+    newCategory.save(function (err, category) {
+        if (err) {
+            resultObject.success = false;
+            resultObject.message = err;
+            callbackFunction(resultObject);
+        } else {
+            resultObject.success = true;
+            resultObject.message = 'Succeed - create new category.';
+            let returnedCategory = {
+                id: category.id,
+                _id: category._id,
+                name: category.name,
+                des: category.des
+            };
+            callbackFunction(resultObject, returnedCategory)
+        }
+    });
+};

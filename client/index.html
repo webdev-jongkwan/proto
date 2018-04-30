@@ -5,7 +5,8 @@
     <title>Title</title>
 
     <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
-    <!--<link rel="stylesheet" href="styles/index.css">-->
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-material/angular-material.css">
+
 </head>
 
 <body>
@@ -17,8 +18,14 @@
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/lodash/dist/lodash.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/moment/moment.js"></script>
 
 <script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-aria/angular-aria.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-messages/angular-messages.js"></script>
+<script src="bower_components/angular-material/angular-material.js"></script>
+
 <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="bower_components/ngstorage/ngStorage.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -31,9 +38,15 @@
 <script src="modules/app.js"></script>
 <script src="modules/route.js"></script>
 <script src="modules/index/index.controller.js"></script>
-<script src="modules/account/account.controller.js"></script>
+<script src="modules/account/account.list.controller.js"></script>
+<script src="modules/account/account.detail.controller.js"></script>
 <script src="modules/category/category.controller.js"></script>
 <script src="modules/journalizing/journalizing.controller.js"></script>
+<script src="modules/rule/rule.list.controller.js"></script>
+<script src="modules/rule/rule.detail.controller.js"></script>
+
+<script src="modules/services/modal/modal.service.js"></script>
+
 <!--<script src="modules/project/projectListCtrl.js"></script>-->
 <!--<script src="modules/department/departmentListCtrl.js"></script>-->
 <!--<script src="modules/department/departmentDetailCtrl.js"></script>-->
@@ -42,3 +55,4 @@
 <!--<script src="modules/moneyBook/account/accountListCtrl.js"></script>-->
 <!--<script src="modules/moneyBook/account/accountDetailCtrl.js"></script>-->
 </html>
+

@@ -7,7 +7,8 @@ var accountSchema = new Schema({
     name : {type: String, required: true, unique: true},
     des : {type: String, required: true, unique: true},
     number: {type: Number, required: true, unique: true},
-    balance: {type: Number, required: true, unique: true},
+    balance: {type: Number, required: true, unique: true, default: 0},
+    type: {type: Number, required: true},
     createdAt: {type: Date, default: Date.now},
     updatedAt: Date
 });
