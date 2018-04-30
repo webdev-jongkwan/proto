@@ -4,8 +4,8 @@ const autoIncrement = require('mongoose-auto-increment');
 
 // 스키마 설정
 var journalizingSchema = new Schema({
-    account: {type: Schema.Types.id, ref: 'Account'},
-    category: {type: Schema.Types.id, ref: 'Category'},
+    account: {type: Schema.Types.ObjectId, ref: 'Account'},
+    category: {type: Schema.Types.ObjectId, ref: 'Category'},
     amount: {type: Number, required: true, default: 0}, // 액수
     isIncome: {type: Boolean, required: true, default: true},
     des : {type: String, required: true},

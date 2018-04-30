@@ -12,6 +12,9 @@ angular.module('app').controller('journalizingCtrl', function ($scope, $http, ca
     $scope.accountList = accountList;
 
     $scope.post = function (journalizing) {
+        $http.post('/api/journalizing', journalizing).then(function (d) {
+            console.log(d);
+        })
         console.log(journalizing)
     };
 

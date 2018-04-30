@@ -1,0 +1,29 @@
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title">{{modalOptions.title}}</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        {{modalOptions.content}}
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-if="!modalOptions.onlyClose" ng-click="apply()">{{modalOptions.okBtnName}}</button>
+        <button class="btn btn-warning" type="button" ng-click="close()">{{modalOptions.closeBtnName}}</button>
+    </div>
+</div>
+
+<style>
+    .fade.in {
+        opacity: 1;
+    }
+
+    .modal.in .modal-dialog {
+        -webkit-transform: translate(0, 0);
+        -o-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+
+    .modal-backdrop.in {
+        filter: alpha(opacity=50);
+        opacity: .5;
+    }
+</style>

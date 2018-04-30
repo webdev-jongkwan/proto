@@ -52,29 +52,32 @@ module.exports.create = function (params, callbackFunction) {
     let resultObject = {};
 
     const newJournalizing = new mongooseJournalizing;
-    params.account = req.body.account;
-    params.category = req.body.category;
-    params.amount = req.body.amount;
-    params.isIncome = req.body.isIncome;
-    params.balance = req.body.balance;
-    params.des = req.body.des;
-    newCategory.name = params.name;
-    newCategory.des = params.des;
-    newCategory.save(function (err, category) {
+    newJournalizing.account = params.account;
+    newJournalizing.category = params.category;
+    newJournalizing.amount = params.amount;
+    newJournalizing.isIncome = params.isIncome;
+    newJournalizing.balance = params.balance;
+    newJournalizing.des = params.des;
+
+    newJournalizing.save(function (err, journalizing) {
         if (err) {
             resultObject.success = false;
             resultObject.message = err;
             callbackFunction(resultObject);
         } else {
             resultObject.success = true;
-            resultObject.message = 'Succeed - create new category.';
-            let returnedCategory = {
-                id: category.id,
-                _id: category._id,
-                name: category.name,
-                des: category.des
+            resultObject.message = 'Succeed - create new journalizing.';
+            let createdJournalizing = {
+                _id: journalizing._id,
+                id: journalizing.id,
+                account: journalizing.account,
+                category: journalizing.category,
+                amount: journalizing.amount,
+                isIncome: journalizing.isIncome,
+                balance: journalizing.balance,
+                des: journalizing.des
             };
-            callbackFunction(resultObject, returnedCategory)
+            callbackFunction(resultObject, createdJournalizing)
         }
     });
 };
