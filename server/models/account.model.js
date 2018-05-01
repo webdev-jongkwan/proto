@@ -15,9 +15,24 @@ module.exports.getList = function (params, callbackFunction) {
     })
 };
 
+// module.exports.getOne = function (params, callbackFunction) {
+//     let resultObject = {};
+//     mongooseAccount.findOne({id: params.id}, function (err, account) {
+//         if (err) {
+//             resultObject.success = false;
+//             resultObject.message = err;
+//             callbackFunction(resultObject);
+//         } else {
+//             resultObject.success = true;
+//             resultObject.message = 'Succeed - get account.';
+//             callbackFunction(resultObject, account);
+//         }
+//     })
+// };
+
 module.exports.getOne = function (params, callbackFunction) {
     let resultObject = {};
-    mongooseAccount.findOne({id: params.id}, function (err, account) {
+    mongooseAccount.findOne({id: params.id}).populate('type').exec(function (err, account) {
         if (err) {
             resultObject.success = false;
             resultObject.message = err;

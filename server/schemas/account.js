@@ -8,7 +8,7 @@ var accountSchema = new Schema({
     des : {type: String, required: true, unique: true},
     number: {type: Number, required: true, unique: true},
     balance: {type: Number, required: true, unique: true, default: 0},
-    type: {type: Number, required: true},
+    type: {type: Schema.Types.Number, ref: 'AccountType'},
     createdAt: {type: Date, default: Date.now},
     updatedAt: Date
 });

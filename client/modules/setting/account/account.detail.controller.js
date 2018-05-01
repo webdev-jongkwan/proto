@@ -8,6 +8,7 @@ angular.module('app').controller('Account.DetailCtrl', function ($scope, $http, 
 
     if (angular.isDefined(account)) {
         $scope.account = account;
+        $scope.account.type = $scope.account.type._id;
         isCreateMode = false;
     }
 

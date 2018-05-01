@@ -15,7 +15,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="accountType">Type</label>
-                        <select id="accountType" class="form-control" ng-model="account.type" ng-options="accountType.id as accountType.name for accountType in accountTypeList"></select>
+                        <select id="accountType" class="form-control" ng-model="account.type" ng-options="accountType._id as accountType.name for accountType in accountTypeList"></select>
                     </div>
                 </div>
                 <div class="form-row">
