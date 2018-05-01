@@ -1,14 +1,13 @@
 angular.module('app').constant('routeName', {
     BASE: 'base',
     INDEX: 'index',
+    SETTING: 'setting',
     CATEGORY: 'category',
     ACCOUNT: 'account',
     ACCOUNT_LIST: 'account.list',
     ACCOUNT_DETAIL: 'account.detail',
-    JOURNALIZING: 'journalizing',
-    RULE: 'rule',
-    RULE_LIST: 'rule.list',
-    RULE_DETAIL: 'rule.detail'
+    ACCOUNT_TYPE: 'accountType',
+    JOURNALIZING: 'journalizing'
 
 });
 
@@ -34,6 +33,19 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, route
         controller: 'IndexCtrl'
     });
 
+    $stateProvider.state({
+        name: routeName.SETTING,
+        url: 'setting',
+        parent: routeName.INDEX,
+        templateUrl: 'modules/setting/setting.html',
+        resolve: {
+            routeName: function (routeName) {
+                return routeName;
+            }
+        },
+        controller: 'SettingCtrl'
+    });
+
     $stateProvider
         .state(routeName.ACCOUNT, {
             url: 'account',
@@ -43,7 +55,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, route
         })
         .state(routeName.ACCOUNT_LIST, {
             url: '/list',
-            templateUrl: 'modules/account/account-list.html',
+            templateUrl: 'modules/setting/account/account-list.html',
             controller: 'Account.ListCtrl',
             resolve: {
                 accountTypeMap: function ($http, $q) {
@@ -75,7 +87,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, route
         })
         .state(routeName.ACCOUNT_DETAIL, {
             url: '/detail/:id',
-            templateUrl: 'modules/account/account-detail.html',
+            templateUrl: 'modules/setting/account/account-detail.html',
             controller: 'Account.DetailCtrl',
             params: { id: null },
             resolve: {
@@ -108,10 +120,29 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, route
         });
 
     $stateProvider.state({
+        name: routeName.ACCOUNT_TYPE,
+        url: 'accountType',
+        parent: routeName.INDEX,
+        templateUrl: 'modules/setting/accountType/accountType.html',
+        resolve: {
+            accountTypeList: function ($http, $q) {
+                let defer = $q.defer();
+                $http.get('/api/accountType/list').then(function (d) {
+                    defer.resolve(d.data.accountTypeList);
+                }, function (e) {
+                    defer.reject(e);
+                });
+                return defer.promise;
+            }
+        },
+        controller: 'AccountTypeCtrl'
+    });
+
+    $stateProvider.state({
         name: routeName.CATEGORY,
         url: 'category',
         parent: routeName.INDEX,
-        templateUrl: 'modules/category/category.html',
+        templateUrl: 'modules/setting/category/category.html',
         resolve: {
             categoryList: function ($http, $q) {
                 let defer = $q.defer();
@@ -126,23 +157,23 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, route
         controller: 'CategoryCtrl'
     });
 
-    $stateProvider
-        .state(routeName.RULE, {
-            url: 'rule',
-            abstract: true,
-            parent: routeName.INDEX,
-            template: '<div ui-view=""></div>'
-        })
-        .state(routeName.RULE_LIST, {
-            url: '/list',
-            templateUrl: 'modules/rule/rule-list.html',
-            controller: 'Rule.ListCtrl'
-        })
-        .state(routeName.RULE_DETAIL, {
-            url: '/detail/:id',
-            templateUrl: 'modules/rule/rule-detail.html',
-            controller: 'Rule.DetailCtrl'
-        });
+    // $stateProvider
+    //     .state(routeName.RULE, {
+    //         url: 'rule',
+    //         abstract: true,
+    //         parent: routeName.INDEX,
+    //         template: '<div ui-view=""></div>'
+    //     })
+    //     .state(routeName.RULE_LIST, {
+    //         url: '/list',
+    //         templateUrl: 'modules/rule/rule-list.html',
+    //         controller: 'Rule.ListCtrl'
+    //     })
+    //     .state(routeName.RULE_DETAIL, {
+    //         url: '/detail/:id',
+    //         templateUrl: 'modules/rule/rule-detail.html',
+    //         controller: 'Rule.DetailCtrl'
+    //     });
 
     $stateProvider.state({
         name: routeName.JOURNALIZING,
