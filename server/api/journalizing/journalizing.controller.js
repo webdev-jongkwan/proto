@@ -43,7 +43,9 @@ function updateAccount(params, callbackFunction) {
     let newParams = {
         _id: params.account,
         isIncome: params.isIncome,
-        amount: params.amount
+        amount: params.amount,
+
+        reverse: params.reverse
     };
 
     accountModel.updateBalance(newParams, function (resultObject, updatedAccount) {
@@ -64,6 +66,9 @@ module.exports.create = function (req, res) {
     params.isIncome = req.body.isIncome;
     params.balance = req.body.balance;
     params.des = req.body.des;
+    params.userType = req.body.userType;
+
+    params.reverse = req.body.reverse;
 
     updateAccount(params, function (resultObject, updatedAccount) {
         params.balance = updatedAccount.balance;

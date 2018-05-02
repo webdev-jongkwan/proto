@@ -74,6 +74,7 @@ module.exports.create = function (params, callbackFunction) {
     newJournalizing.isIncome = params.isIncome;
     newJournalizing.balance = params.balance;
     newJournalizing.des = params.des;
+    newJournalizing.userType = params.userType;
 
     newJournalizing.save(function (err, journalizing) {
         if (err) {
@@ -91,7 +92,8 @@ module.exports.create = function (params, callbackFunction) {
                 amount: journalizing.amount,
                 isIncome: journalizing.isIncome,
                 balance: journalizing.balance,
-                des: journalizing.des
+                des: journalizing.des,
+                userType: journalizing.userType
             };
             callbackFunction(resultObject, createdJournalizing)
         }

@@ -11,6 +11,12 @@ angular.module('app').controller('journalizingCtrl', function ($scope, $http, jo
     $scope.accountList = accountInfo.accountList;
     $scope.balanceMap = accountInfo.balanceMap;
 
+    $scope.userTypeList = [
+        {id: 0, name: 'Both'},
+        {id: 1, name: 'Jake'},
+        {id: 2, name: 'Jane'}
+    ];
+
     let defaultSet = {
         datetime: moment().format('YYYY-MM-DD'),
         isIncome: true,
@@ -18,6 +24,7 @@ angular.module('app').controller('journalizingCtrl', function ($scope, $http, jo
         category: _.first(categoryList)._id
     };
 
+    $scope.reverse = true;
     $scope.journalizing = _.clone(defaultSet);
 
     $scope.balance = '';
@@ -39,7 +46,10 @@ angular.module('app').controller('journalizingCtrl', function ($scope, $http, jo
             balance: $scope.balance,
             category: journalizing.category,
             amount: journalizing.amount,
-            des: journalizing.des
+            des: journalizing.des,
+            userType: journalizing.userType,
+
+            reverse: $scope.reverse
         };
 
         $http.post('/api/journalizing', params).then(function (d) {
@@ -48,7 +58,7 @@ angular.module('app').controller('journalizingCtrl', function ($scope, $http, jo
                 $scope.journalizingList = d.data.journalizingList;
             });
         });
-        // console.log(journalizing)
+        console.log(journalizing)
     };
 
 });

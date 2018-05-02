@@ -5,10 +5,10 @@ const autoIncrement = require('mongoose-auto-increment');
 // 스키마 설정
 var accountSchema = new Schema({
     _id : {type: Number},
-    name : {type: String, required: true, unique: true},
-    des : {type: String, required: true, unique: true},
-    number: {type: Number, required: true, unique: true},
-    balance: {type: Number, required: true, unique: true, default: 0},
+    name : {type: String, required: true},
+    des : {type: String},
+    number: {type: Number, required: true},
+    balance: {type: Number, required: true, default: 0},
     type: {type: Schema.Types.Number, ref: 'AccountType'},
     createdAt: {type: Date, default: Date.now},
     updatedAt: {type: Date, default: Date.now}

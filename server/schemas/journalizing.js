@@ -10,10 +10,10 @@ var journalizingSchema = new Schema({
     category: {type: Schema.Types.Number, ref: 'Category'},
     amount: {type: Number, required: true, default: 0}, // 액수
     isIncome: {type: Boolean, required: true, default: true},
-    des : {type: String, required: true},
-    balance: {type: Number},
+    des : {type: String},
+    balance: {type: Number, required: true},
     createdAt: {type: Date, default: Date.now},
-    updatedAt: Date
+    userType: {type: Number, default: 0}
 });
 
 module.exports = mongoose.model('Journalizing', journalizingSchema);

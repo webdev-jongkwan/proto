@@ -5,8 +5,8 @@ const autoIncrement = require('mongoose-auto-increment');
 // 스키마 설정
 var categorySchema = new Schema({
     _id: {type: Number},
-    name : {type: String, required: true, unique: true},
-    des : {type: String, required: true, unique: true},
+    name : {type: String, required: true},
+    des : {type: String},
     createdAt: {type: Date, default: Date.now},
     updatedAt: Date
 });

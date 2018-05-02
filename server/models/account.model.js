@@ -116,10 +116,18 @@ module.exports.removeOne = function (params, callbackFunction) {
 let calcBalance = function (inputData, account) {
     let updatedBalance = account.balance;
 
-    if (inputData.isIncome) {
-        updatedBalance += inputData.amount;
+    if (inputData.reverse) {
+        if (!inputData.isIncome) {
+            updatedBalance += inputData.amount;
+        } else {
+            updatedBalance -= inputData.amount;
+        }
     } else {
-        updatedBalance -= inputData.amount;
+        if (inputData.isIncome) {
+            updatedBalance += inputData.amount;
+        } else {
+            updatedBalance -= inputData.amount;
+        }
     }
 
     return updatedBalance;

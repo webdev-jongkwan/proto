@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
     <div class="row row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -7,6 +7,9 @@
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <md-datepicker ng-model="journalizing.datetime" md-placeholder="Date"></md-datepicker>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <select class="form-control" ng-model="journalizing.userType" ng-options="userType.id as userType.name for userType in userTypeList"></select>
                             </div>
                         </div>
                         <div class="form-row">
@@ -38,8 +41,12 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group">
+                            <div class="form-group col-md-6">
                                 <input type="text" class="form-control" id="inputCity" ng-model="journalizing.des">
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1" ng-model="reverse">
+                                <label class="form-check-label" for="exampleCheck1">reverse</label>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary" ng-click="postJournalizing(journalizing)">Sign in</button>
@@ -59,10 +66,13 @@
             <ul class="list-group list-group-flush" ng-repeat="journalizing in journalizingList track by $index">
                 <li class="list-group-item">
                     <div class="row">
+                        <!--<div class="col col-md-1">-->
+                            <!--{{journalizing.userType}}-->
+                        <!--</div>-->
                         <div class="col col-md-2">
-                            {{moment(journalizing.createdAt).format('YYYY-MM-DD')}}
+                            {{journalizing.datetime | date: 'yyyy-MM-dd'}}
                         </div>
-                        <div class="col col-md-1">
+                        <div class="col col-md-2">
                             {{journalizing.account}}
                         </div>
                         <div class="col col-md-1">
@@ -71,13 +81,13 @@
                         <div class="col col-md-1">
                             {{journalizing.isIncome}}
                         </div>
-                        <div class="col col-md-1">
-                            {{journalizing.amount}}
+                        <div class="col col-md-2">
+                            {{journalizing.amount | currency:"":0 }}
                         </div>
-                        <div class="col col-md-1">
-                            {{journalizing.balance}}
+                        <div class="col col-md-2">
+                            {{journalizing.balance | currency:"":0 }}
                         </div>
-                        <div class="col col-md-4">
+                        <div class="col col-md-2">
                             {{journalizing.des}}
                         </div>
                     </div>
