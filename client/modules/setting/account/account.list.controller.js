@@ -12,22 +12,41 @@ angular.module('app').controller('Account.ListCtrl', function ($scope, $http, $s
     }
 
     $scope.moveDetail = function (account) {
-        $state.go(routeName.ACCOUNT_DETAIL, {id: account.id});
+        $state.go(routeName.ACCOUNT_DETAIL, {id: account._id});
     };
 
     $scope.removeAccount = function (account) {
         let options = modal.defaultOptions;
-        modal.open({title: 'a', content: 'aaa'}).result.then(function (d) {
-           console.log(d);
-        });
+        options.title = 'Confirm';
+        options.content = 'Deleting. Continue?';
+        options.okFunction = function () {
+            $http.delete('/api/account/' + account._id).then(function (d) {
+                $http.get('/api/account/list').then(function (d) {
+                    $scope.accountList = d.data.accountList;
+                });
+            });
+        };
+        modal.open(options);
+        return options;
     };
 
-    $scope.showModal = function () {
-        let options = modal.defaultOptions;
-        
-        modal.open({title: 'a', content: 'aaa'}).result.then(function (d) {
+    // $scope.showModal = function () {
+    //     let options = modal.defaultOptions;
+    //     options.title = 'Confirm';
+    //     options.content = 'Deleting. Continue?';
+    //     options.okFunction = function () {
+    //       $http.delete('/api/account/' + account._id).then(function (d) {
+    //           $http.get('/api/account/list').then(function (d) {
+    //               $scope.accountList = d.data.accountList;
+    //           });
+    //
+    //       });
+    //     };
+        // modal.open({title: 'a', content: 'aaa'}).result.then(function (d) {
+        //
+        // });
+    // }
 
-        });
-    }
+
 
 });

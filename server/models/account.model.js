@@ -32,7 +32,7 @@ module.exports.getList = function (params, callbackFunction) {
 
 module.exports.getOne = function (params, callbackFunction) {
     let resultObject = {};
-    mongooseAccount.findOne({id: params.id}).populate('type').exec(function (err, account) {
+    mongooseAccount.findOne({_id: params._id}).populate('type').exec(function (err, account) {
         if (err) {
             resultObject.success = false;
             resultObject.message = err;
@@ -64,7 +64,6 @@ module.exports.create = function (params, callbackFunction) {
             resultObject.success = true;
             resultObject.message = 'Succeed - create new account.';
             let createdAccount = {
-                id: account.id,
                 _id: account._id,
                 name: account.name,
                 des: account.des,
@@ -79,7 +78,7 @@ module.exports.create = function (params, callbackFunction) {
 
 module.exports.updateOne = function (params, callbackFunction) {
     let resultObject = {};
-    mongooseAccount.findOneAndUpdate({id: params.id}, {
+    mongooseAccount.findOneAndUpdate({_id: params._id}, {
         name: params.name,
         des: params.des,
         type: account.type,
@@ -101,7 +100,7 @@ module.exports.updateOne = function (params, callbackFunction) {
 
 module.exports.removeOne = function (params, callbackFunction) {
     let resultObject = {};
-    mongooseAccount.findOneAndRemove({id: params.id}, function (err, account) {
+    mongooseAccount.findOneAndRemove({_id: params._id}, function (err, account) {
         if (err) {
             resultObject.success = false;
             resultObject.message = err;
@@ -112,5 +111,44 @@ module.exports.removeOne = function (params, callbackFunction) {
             callbackFunction(resultObject, account);
         }
     })
+};
+
+let calcBalance = function (inputData, account) {
+    let updatedBalance = account.balance;
+
+    if (inputData.isIncome) {
+        updatedBalance += inputData.amount;
+    } else {
+        updatedBalance -= inputData.amount;
+    }
+
+    return updatedBalance;
+};
+
+module.exports.updateBalance = function (params, callbackFunction) {
+    let resultObject = {};
+
+    mongooseAccount.findOne({_id: params._id}, function (err, account) {
+        if (err) {
+            resultObject.success = false;
+            resultObject.message = err;
+            callbackFunction(resultObject);
+        } else {
+            let updatedAccount = account;
+            updatedAccount.balance = calcBalance(params, account);
+            updatedAccount.updatedAt = Date.now();
+            updatedAccount.save(function (err, updatedAccount) {
+                if (err) {
+                    resultObject.success = false;
+                    resultObject.message = err;
+                    callbackFunction(resultObject);
+                } else {
+                    resultObject.success = true;
+                    resultObject.message = 'Succeed - updated account balance.';
+                    callbackFunction(resultObject, updatedAccount);
+                }
+            });
+        }
+    });
 };
 

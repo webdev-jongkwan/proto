@@ -12,9 +12,11 @@ angular.module('app').controller('Account.DetailCtrl', function ($scope, $http, 
         isCreateMode = false;
     }
 
+    $scope.goBack = function () {
+        $state.go(routeName.ACCOUNT_LIST);
+    };
 
     $scope.createAccount = function (account) {
-
         // type id only
         let params = {
             name: account.name,

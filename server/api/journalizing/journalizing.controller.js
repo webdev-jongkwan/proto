@@ -1,4 +1,5 @@
 const journalizingModel = require('../../models/journalizing.model');
+const accountModel = require('../../models/account.model');
 
 module.exports.getList = function (req, res) {
     let params = {};
@@ -20,8 +21,43 @@ module.exports.getList = function (req, res) {
     })
 };
 
+module.exports.getOne = function (req, res) {
+    let params = {};
+    params._id = req.params.id;
+
+    journalizingModel.getOne(params, function (resultObject, journalizingList) {
+        if (journalizingList) {
+
+        } else {
+            res.send({
+                success: false,
+                message: 'Failed - update account.',
+                errMsg: resultObject
+            });
+        }
+    })
+};
+
+function updateAccount(params, callbackFunction) {
+
+    let newParams = {
+        _id: params.account,
+        isIncome: params.isIncome,
+        amount: params.amount
+    };
+
+    accountModel.updateBalance(newParams, function (resultObject, updatedAccount) {
+        if (updatedAccount) {
+            callbackFunction(resultObject, updatedAccount);
+        } else {
+            callbackFunction(resultObject);
+        }
+    });
+}
+
 module.exports.create = function (req, res) {
     let params = {};
+    params.datetime = req.body.datetime;
     params.account = req.body.account;
     params.category = req.body.category;
     params.amount = req.body.amount;
@@ -29,13 +65,8 @@ module.exports.create = function (req, res) {
     params.balance = req.body.balance;
     params.des = req.body.des;
 
-
-    // if (!params.name) {
-    //     return res.send({
-    //         success: false,
-    //         message: 'Name is required.'
-    //     });
-    // } else {
+    updateAccount(params, function (resultObject, updatedAccount) {
+        params.balance = updatedAccount.balance;
         journalizingModel.create(params, function (resultObject, newJournalizing) {
             if (newJournalizing) {
                 res.send({
@@ -50,6 +81,8 @@ module.exports.create = function (req, res) {
                     errMsg: resultObject.message
                 });
             }
-        })
-    // }
+        });
+    });
 };
+
+

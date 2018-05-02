@@ -15,6 +15,21 @@ module.exports.getList = function (params, callbackFunction) {
     })
 };
 
+module.exports.getOne = function (params, callbackFunction) {
+    let resultObject = {};
+    mongooseJournalizing.findOne({_id: params._id}).populate('account').populate('category').exec(function (err, journalizing) {
+        if (err) {
+            resultObject.success = false;
+            resultObject.message = err;
+            callbackFunction(resultObject);
+        } else {
+            resultObject.success = true;
+            resultObject.message = 'Succeed - get journalizing.';
+            callbackFunction(resultObject, journalizing);
+        }
+    });
+};
+
 // module.exports.updateOne = function (params, callbackFunction) {
 //     let resultObject = {};
 //     mongooseCategory.findOneAndUpdate({id: params.id}, {
@@ -52,6 +67,7 @@ module.exports.create = function (params, callbackFunction) {
     let resultObject = {};
 
     const newJournalizing = new mongooseJournalizing;
+    newJournalizing.datetime = params.datetime;
     newJournalizing.account = params.account;
     newJournalizing.category = params.category;
     newJournalizing.amount = params.amount;
@@ -69,7 +85,7 @@ module.exports.create = function (params, callbackFunction) {
             resultObject.message = 'Succeed - create new journalizing.';
             let createdJournalizing = {
                 _id: journalizing._id,
-                id: journalizing.id,
+                datetime: journalizing.datetime,
                 account: journalizing.account,
                 category: journalizing.category,
                 amount: journalizing.amount,

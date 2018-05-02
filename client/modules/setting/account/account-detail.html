@@ -1,6 +1,7 @@
 <div class="container">
     <div class="card" style="width: 100%; margin-top: 30px;">
         <div class="card-header">
+            <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="goBack()" style="padding-right: 10px;"><</button>
             Featured
         </div>
         <div class="card-body">
@@ -11,7 +12,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="accountName">Name</label>
-                        <input type="test" class="form-control" id="accountName" placeholder="Account Name" ng-model="account.name">
+                        <input type="text" class="form-control" id="accountName" placeholder="Account Name" ng-model="account.name">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="accountType">Type</label>
@@ -44,7 +45,7 @@
                     <input type="text" class="form-control" id="accountDes" placeholder="Account Description" ng-model="account.des">
                 </div>
 
-                <button type="submit" class="btn btn-outline-info btn-lg" ng-click="createAccount(account)">Create</button>
+                <button type="submit" class="btn btn-outline-info" ng-click="createAccount(account)">Apply</button>
             </form>
 
         </div>

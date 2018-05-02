@@ -65,7 +65,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, route
                         if (d.data.accountTypeList) {
                             let accountTypeList = d.data.accountTypeList;
                             for (let i = 0; i < accountTypeList.length; i++) {
-                                accountTypeMap[accountTypeList[i].id] = accountTypeList[i];
+                                accountTypeMap[accountTypeList[i]._id] = accountTypeList[i];
                             }
                         }
                         defer.resolve(accountTypeMap);
@@ -89,7 +89,9 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, route
             url: '/detail/:id',
             templateUrl: 'modules/setting/account/account-detail.html',
             controller: 'Account.DetailCtrl',
-            params: { id: null },
+            params: {
+              id: ''
+            },
             resolve: {
                 accountTypeList: function ($http, $q) {
                     let defer = $q.defer();
@@ -105,7 +107,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, route
                     return defer.promise;
                 },
                 account: function ($stateParams, $http, $q) {
-                    if (angular.isDefined($stateParams.id)) {
+                    if (!_.isUndefined($stateParams.id) && !_.isEqual($stateParams.id, "")) {
                         let defer = $q.defer();
                         $http.get('/api/account/'+$stateParams.id).then(function(d) {
                             defer.resolve(d.data.account);
@@ -190,10 +192,25 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, route
                 });
                 return defer.promise;
             },
-            accountList: function ($http, $q) {
+            accountInfo: function ($http, $q) {
                 let defer = $q.defer();
+                let accountInfo = {};
                 $http.get('api/account/list').then(function (d) {
-                    defer.resolve(d.data.accountList);
+                    accountInfo.accountList = d.data.accountList;
+                    accountInfo.balanceMap = {};
+                    for (let i = 0; i < accountInfo.accountList.length; i++) {
+                        accountInfo.balanceMap[accountInfo.accountList[i]._id] = accountInfo.accountList[i].balance;
+                    }
+                    defer.resolve(accountInfo);
+                }, function (e) {
+                    defer.reject(e);
+                });
+                return defer.promise;
+            },
+            journalizingList: function ($http, $q) {
+                let defer = $q.defer();
+                $http.get('api/journalizing/list').then(function (d) {
+                    defer.resolve(d.data.journalizingList);
                 }, function (e) {
                     defer.reject(e);
                 });

@@ -4,8 +4,10 @@ const autoIncrement = require('mongoose-auto-increment');
 
 // 스키마 설정
 var journalizingSchema = new Schema({
-    account: {type: Schema.Types.ObjectId, ref: 'Account'},
-    category: {type: Schema.Types.ObjectId, ref: 'Category'},
+    _id: {type: Number},
+    datetime: {type: Date, required: true, default: Date.now},
+    account: {type: Schema.Types.Number, ref: 'Account'},
+    category: {type: Schema.Types.Number, ref: 'Category'},
     amount: {type: Number, required: true, default: 0}, // 액수
     isIncome: {type: Boolean, required: true, default: true},
     des : {type: String, required: true},
@@ -16,4 +18,4 @@ var journalizingSchema = new Schema({
 
 module.exports = mongoose.model('Journalizing', journalizingSchema);
 autoIncrement.initialize(mongoose.connection);
-journalizingSchema.plugin(autoIncrement.plugin, { model: 'Journalizings', field: 'id', startAt: 1});
+journalizingSchema.plugin(autoIncrement.plugin, { model: 'Journalizings', field: '_id', startAt: 1});

@@ -22,9 +22,9 @@ module.exports.getList = function (req, res) {
 
 module.exports.getOne = function (req, res) {
     let params = {};
-    params.id = req.params.id;
+    params._id = req.params.id;
 
-    if (!params.id) {
+    if (!params._id) {
         return res.send({
             success: false,
             message: 'Failed : required Account ID.'
@@ -82,14 +82,14 @@ module.exports.create = function (req, res) {
 
 module.exports.updateOne = function (req, res) {
     let params = {};
-    params.id = req.params.id;
+    params._id = req.params.id;
     params.name = req.body.name;
     params.des = req.body.des;
     params.type = req.body.type;
     params.number = req.body.number;
     params.balance = req.body.balance;
 
-    if (!params.id) {
+    if (!params._id) {
         return res.send({
             success: false,
             message: 'ID is required.'
@@ -120,9 +120,9 @@ module.exports.updateOne = function (req, res) {
 
 module.exports.removeOne = function (req, res) {
     let params = {};
-    params.id = req.params.id;
+    params._id = req.params.id;
 
-    if (!params.id) {
+    if (!params._id) {
         return res.send({
             success: false,
             message: 'ID is required.'
