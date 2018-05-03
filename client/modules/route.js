@@ -7,7 +7,9 @@ angular.module('app').constant('routeName', {
     ACCOUNT_LIST: 'account.list',
     ACCOUNT_DETAIL: 'account.detail',
     ACCOUNT_TYPE: 'accountType',
-    JOURNALIZING: 'journalizing'
+    JOURNALIZING: 'journalizing',
+    HISTORY: 'history',
+    TEST: 'test'
 
 });
 
@@ -159,24 +161,6 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, route
         controller: 'CategoryCtrl'
     });
 
-    // $stateProvider
-    //     .state(routeName.RULE, {
-    //         url: 'rule',
-    //         abstract: true,
-    //         parent: routeName.INDEX,
-    //         template: '<div ui-view=""></div>'
-    //     })
-    //     .state(routeName.RULE_LIST, {
-    //         url: '/list',
-    //         templateUrl: 'modules/rule/rule-list.html',
-    //         controller: 'Rule.ListCtrl'
-    //     })
-    //     .state(routeName.RULE_DETAIL, {
-    //         url: '/detail/:id',
-    //         templateUrl: 'modules/rule/rule-detail.html',
-    //         controller: 'Rule.DetailCtrl'
-    //     });
-
     $stateProvider.state({
         name: routeName.JOURNALIZING,
         url: 'journalizing',
@@ -198,8 +182,10 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, route
                 $http.get('api/account/list').then(function (d) {
                     accountInfo.accountList = d.data.accountList;
                     accountInfo.balanceMap = {};
+                    accountInfo.accountMap = {};
                     for (let i = 0; i < accountInfo.accountList.length; i++) {
                         accountInfo.balanceMap[accountInfo.accountList[i]._id] = accountInfo.accountList[i].balance;
+                        accountInfo.accountMap[accountInfo.accountList[i]._id] = accountInfo.accountList[i].name;
                     }
                     defer.resolve(accountInfo);
                 }, function (e) {
@@ -218,6 +204,96 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, route
             }
         },
         controller: 'journalizingCtrl'
+    });
+
+    $stateProvider.state({
+        name: routeName.HISTORY,
+        url: 'history',
+        parent: routeName.INDEX,
+        templateUrl: 'modules/history/history.html',
+        resolve: {
+            categoryList: function ($http, $q) {
+                let defer = $q.defer();
+                $http.get('api/category/list').then(function (d) {
+                    defer.resolve(d.data.categoryList);
+                }, function (e) {
+                    defer.reject(e);
+                });
+                return defer.promise;
+            },
+            accountInfo: function ($http, $q) {
+                let defer = $q.defer();
+                let accountInfo = {};
+                $http.get('api/account/list').then(function (d) {
+                    accountInfo.accountList = d.data.accountList;
+                    accountInfo.balanceMap = {};
+                    accountInfo.accountMap = {};
+                    for (let i = 0; i < accountInfo.accountList.length; i++) {
+                        accountInfo.balanceMap[accountInfo.accountList[i]._id] = accountInfo.accountList[i].balance;
+                        accountInfo.accountMap[accountInfo.accountList[i]._id] = accountInfo.accountList[i].name;
+                    }
+                    defer.resolve(accountInfo);
+                }, function (e) {
+                    defer.reject(e);
+                });
+                return defer.promise;
+            },
+            journalizingList: function ($http, $q) {
+                let defer = $q.defer();
+                $http.get('api/journalizing/list').then(function (d) {
+                    defer.resolve(d.data.journalizingList);
+                }, function (e) {
+                    defer.reject(e);
+                });
+                return defer.promise;
+            }
+        },
+        controller: 'HistoryCtrl'
+    });
+
+    $stateProvider.state({
+        name: routeName.TEST,
+        url: 'test',
+        parent: routeName.INDEX,
+        templateUrl: 'modules/test/test.html',
+        resolve: {
+            categoryList: function ($http, $q) {
+                let defer = $q.defer();
+                $http.get('api/category/list').then(function (d) {
+                    defer.resolve(d.data.categoryList);
+                }, function (e) {
+                    defer.reject(e);
+                });
+                return defer.promise;
+            },
+            accountInfo: function ($http, $q) {
+                let defer = $q.defer();
+                let accountInfo = {};
+                $http.get('api/account/list').then(function (d) {
+                    accountInfo.accountList = d.data.accountList;
+                    accountInfo.balanceMap = {};
+                    accountInfo.accountMap = {};
+                    for (let i = 0; i < accountInfo.accountList.length; i++) {
+                        accountInfo.balanceMap[accountInfo.accountList[i]._id] = accountInfo.accountList[i].balance;
+                        accountInfo.accountMap[accountInfo.accountList[i]._id] = accountInfo.accountList[i].name;
+                    }
+                    defer.resolve(accountInfo);
+                }, function (e) {
+                    defer.reject(e);
+                });
+                return defer.promise;
+            },
+            journalizingList: function ($http, $q) {
+                let defer = $q.defer();
+                $http.get('api/journalizing/list').then(function (d) {
+                    defer.resolve(d.data.journalizingList);
+                }, function (e) {
+                    defer.reject(e);
+                });
+                return defer.promise;
+            }
+        },
+        controller: 'test'
     });
 
     $urlRouterProvider.otherwise('/');

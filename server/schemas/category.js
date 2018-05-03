@@ -7,8 +7,7 @@ var categorySchema = new Schema({
     _id: {type: Number},
     name : {type: String, required: true},
     des : {type: String},
-    createdAt: {type: Date, default: Date.now},
-    updatedAt: Date
+    createdAt: {type: Date, default: Date.now}
 });
 
 module.exports = mongoose.model('Category', categorySchema);

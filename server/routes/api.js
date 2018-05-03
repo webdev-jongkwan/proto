@@ -11,5 +11,6 @@ router.use('/accountType', require('../api/accountType'));
 
 router.use('/journalizing', require('../api/journalizing'));
 
+router.use('/aaa', require('../api/aaa'));
 
 module.exports = router;

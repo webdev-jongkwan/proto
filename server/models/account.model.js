@@ -142,10 +142,14 @@ module.exports.updateBalance = function (params, callbackFunction) {
             resultObject.message = err;
             callbackFunction(resultObject);
         } else {
-            let updatedAccount = account;
-            updatedAccount.balance = calcBalance(params, account);
-            updatedAccount.updatedAt = Date.now();
-            updatedAccount.save(function (err, updatedAccount) {
+            // account.set({balance: })
+
+            let balance = calcBalance(params, account);
+            account.set({balance: balance, updatedAt: Date.now()});
+            // updatedAccount.balance = calcBalance(params, account);
+
+            // updatedAccount.updatedAt = Date.now();
+            account.save(function (err, updatedAccount) {
                 if (err) {
                     resultObject.success = false;
                     resultObject.message = err;

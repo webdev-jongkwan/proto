@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    This is some text within a card body.111
+                    <button type="button" class="btn btn-outline-primary" ng-click="getAaa()">Primary</button>
+                    <button type="button" class="btn btn-outline-secondary">Secondary</button>
+                    <button type="button" class="btn btn-outline-success">Success</button>
+                    <button type="button" class="btn btn-outline-danger">Danger</button>
+                    <button type="button" class="btn btn-outline-warning">Warning</button>
+                    <button type="button" class="btn btn-outline-info">Info</button>
+                    <button type="button" class="btn btn-outline-light">Light</button>
+                    <button type="button" class="btn btn-outline-dark">Dark</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="bar" class="chart chart-bar"
+                            chart-data="adata" chart-labels="alabels"> chart-series="series"
+                    </canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="base" class="chart-bar"
+                            chart-data="data" chart-labels="labels" chart-colors="colors"
+                            chart-dataset-override="datasetOverride" >
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    {{aaa}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

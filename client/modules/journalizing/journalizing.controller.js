@@ -10,6 +10,7 @@ angular.module('app').controller('journalizingCtrl', function ($scope, $http, jo
     $scope.categoryList = categoryList;
     $scope.accountList = accountInfo.accountList;
     $scope.balanceMap = accountInfo.balanceMap;
+    $scope.accountMap = accountInfo.accountMap;
 
     $scope.userTypeList = [
         {id: 0, name: 'Both'},
