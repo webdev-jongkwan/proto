@@ -1,17 +1,33 @@
 <div class="container">
+    <div class="row justify-content-md-center" style="margin-top: 30px;">
+        <button type="button" class="btn btn-outline-primary" ng-click="getAaa()">Primary</button>
+        <button type="button" class="btn btn-outline-secondary" ng-click="getMonth()">Secondary</button>
+        <button type="button" class="btn btn-outline-success">Success</button>
+        <button type="button" class="btn btn-outline-danger">Danger</button>
+        <button type="button" class="btn btn-outline-warning">Warning</button>
+        <button type="button" class="btn btn-outline-info">Info</button>
+        <button type="button" class="btn btn-outline-light">Light</button>
+        <button type="button" class="btn btn-outline-dark">Dark</button>
+    </div>
+
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                {{bbb}}
+                <canvas id="bars" class="chart chart-bar"
+                        chart-data="sdata" chart-labels="slabels" chart-series="sseries">
+                </canvas>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    This is some text within a card body.111
-                    <button type="button" class="btn btn-outline-primary" ng-click="getAaa()">Primary</button>
-                    <button type="button" class="btn btn-outline-secondary">Secondary</button>
-                    <button type="button" class="btn btn-outline-success">Success</button>
-                    <button type="button" class="btn btn-outline-danger">Danger</button>
-                    <button type="button" class="btn btn-outline-warning">Warning</button>
-                    <button type="button" class="btn btn-outline-info">Info</button>
-                    <button type="button" class="btn btn-outline-light">Light</button>
-                    <button type="button" class="btn btn-outline-dark">Dark</button>
+                    <canvas id="pie" class="chart chart-pie"
+                            chart-data="cdata" chart-labels="clabels" chart-options="options">
+                    </canvas>
                 </div>
             </div>
         </div>
@@ -19,7 +35,7 @@
             <div class="card">
                 <div class="card-body">
                     <canvas id="bar" class="chart chart-bar"
-                            chart-data="adata" chart-labels="alabels"> chart-series="series"
+                            chart-data="adata" chart-labels="alabels" chart-series="series">
                     </canvas>
                 </div>
             </div>
@@ -38,9 +54,17 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    {{aaa}}
+                    <canvas id="ba2r" class="chart chart-bar"
+                            chart-data="bdata" chart-labels="blabels" chart-series="seriess">
+                    </canvas>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .card {
+        margin-top: 15px;
+    }
+</style>

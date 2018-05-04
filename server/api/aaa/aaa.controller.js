@@ -1,5 +1,6 @@
 const lodash = require('lodash');
 const aaaModel = require('../../models/aaa.model');
+const moment = require('moment');
 
 function asd(item) {
 
@@ -23,22 +24,44 @@ module.exports.getA = function (req, res) {
         }
 
 
-
-
-
-
-        // if (newAccount) {
         res.send({
             success: true,
             message: 'Succeed - create new account.',
             aaa: resultObj
         });
-        // } else {
-        //     res.send({
-        //         success: false,
-        //         message: 'Failed - create new account.',
-        //         errMsg: resultObject.message
-        //     });
-        // }
+
+    })
+};
+
+
+module.exports.getB = function (req, res) {
+let params = {
+    mode: req.params.mode,
+    order: req.params.order
+};
+
+    aaaModel.getB(params, function (resultObject, bbb) {
+        let resultObj = {};
+        resultObj.resultA = {};
+        resultObj.resultB = {};
+        for (let i = 0; i < bbb.length; i++) {
+            let item = bbb[i];
+            let key = moment(item.datetime).format('YYYY-MM-DD');
+            if (item.isIncome) {
+                resultObj.resultA[key] = lodash.add(resultObj.resultA[key], item.amount);
+                // resultObj.resultB[item.category] = lodash.add(resultObj.resultB[item.category], item.amount);
+            } else {
+                resultObj.resultA[key] = lodash.subtract(resultObj.resultA[key], item.amount);
+                // resultObj.resultB[item.category] = lodash.subtract(resultObj.resultB[item.category], item.amount);
+            }
+        }
+
+
+        res.send({
+            success: true,
+            message: 'Succeed - create new account.',
+            bbb: resultObj
+        });
+
     })
 };

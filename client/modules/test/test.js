@@ -1,13 +1,13 @@
 angular.module('app').controller('test', function ($scope, $http, journalizingList, categoryList, accountInfo, uiGridConstants) {
 
     $scope.accountMap = accountInfo.accountMap;
-    $scope.alabels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+    // $scope.alabels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
     $scope.series = ['Series A'];
-
-    $scope.adata = [
-        [65, 59, 80, 81, 56, 55, 40]
-
-    ];
+$scope.seriess = ['Series B'];
+    // $scope.adata = [
+    //     [65, 59, 80, 81, 56, 55, 40]
+    //
+    // ];
 
 
     $scope.colors = ['#45b7cd', '#ff6384', '#ff8e72'];
@@ -32,19 +32,50 @@ angular.module('app').controller('test', function ($scope, $http, journalizingLi
         }
     ];
 
+    $scope.getMonth = function () {
+        $http.get('/api/aaa/month/4').then(function (d) {
+            let returnedList = d.data.bbb;
+            let dataA = returnedList.resultA;
+
+            $scope.sseriess = ['Series S'];
+            $scope.slabels = [];
+            $scope.sdata = [];
+            for ( let key in dataA) {
+                $scope.slabels.push(key);
+                $scope.sdata.push(dataA[key]);
+            }
+        }) ;
+    };
 
 
 $scope.getAaa = function () {
     $http.get('/api/aaa/a').then(function (d) {
         let returnedList = d.data.aaa;
 
+        let dataA = returnedList.resultA;
+        let dataB = returnedList.resultB;
 
-        $scope.alabels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-        $scope.series = ['Series A'];
+        $scope.alabels = [];
+        $scope.adata = [];
 
-        $scope.adata = [
-            65, 59, 80, 81, 56, 55, 40
-        ];
+        $scope.blabels = [];
+        $scope.bdata = [];
+
+        $scope.clabels = [];
+        $scope.cdata = [];
+
+        for ( let key in dataA) {
+            $scope.alabels.push($scope.accountMap[key]);
+            $scope.adata.push(dataA[key]);
+        }
+
+        for ( let key in dataB) {
+            $scope.blabels.push($scope.accountMap[key]);
+            $scope.bdata.push(dataB[key]);
+        }
+
+        $scope.clabels = $scope.blabels;
+        $scope.cdata = $scope.bdata;
 
 
     })

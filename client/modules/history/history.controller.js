@@ -6,6 +6,20 @@ angular.module('app').controller('HistoryCtrl', function ($scope, $http, journal
     $scope.balanceMap = accountInfo.balanceMap;
     $scope.accountMap = accountInfo.accountMap;
 
+    let makeFilterOption = function (listData) {
+      let resultData = [];
+      angular.forEach(listData, function (data) {
+          let obj = {
+              value: data.id,
+              label: data.name
+          };
+          resultData.push(obj);
+      });
+      return resultData;
+    };
+
+    let accountFiletrData = makeFilterOption($scope.accountList);
+    let categoryFilterData = makeFilterOption($scope.categoryList);
 
     $scope.userTypeList = [
         {id: 0, name: 'Both'},
@@ -17,13 +31,18 @@ angular.module('app').controller('HistoryCtrl', function ($scope, $http, journal
         {
             name: 'Date',
             field: 'datetime',
+            type: 'date',
+            // cellFilter: 'date:"YYYY-MM-dd"',
             // width: 50,
             cellTemplate: '<div class="ui-gird-cell-contents text-center" ng-click="grid.appScope.moveDetail(row.entity)">{{row.entity[col.field]}}</div>'
         },
         {
             name: 'Account',
             field: 'account',
-            // width: 50,
+            filter: {
+                type: uiGridConstants.filter.SELECT,
+                selectOptions: accountFiletrData
+            },
             cellTemplate: '<div class="ui-gird-cell-contents" ng-click="grid.appScope.moveDetail(row.entity)">{{row.entity[col.field]}}</div>'
         },
         {
@@ -35,7 +54,10 @@ angular.module('app').controller('HistoryCtrl', function ($scope, $http, journal
         {
             name: 'category',
             field: 'category',
-            // width: 30,
+            filter: {
+                type: uiGridConstants.filter.SELECT,
+                selectOptions: categoryFilterData
+            },
             cellTemplate: '<div class="ui-gird-cell-contents" ng-click="grid.appScope.moveDetail(row.entity)">{{row.entity[col.field]}}</div>'
         },
         {
@@ -63,6 +85,11 @@ angular.module('app').controller('HistoryCtrl', function ($scope, $http, journal
     $scope.gridOptions = {
         data: $scope.journalizingList,
         enableSorting: true,
+        enableFiltering: true,
+        // onRegisterApi: function(gridApi){
+        //     vm.gridApi = gridApi;
+        // },
+
         enableVerticalScrollbar : uiGridConstants.scrollbars.NEVER,
         enableHorizontalScrollbar  : uiGridConstants.scrollbars.NEVER,
         enableColumnMenus: false,

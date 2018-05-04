@@ -7,8 +7,9 @@ router.get('/a', function (req, res) {
     controller.getA(req, res);
 });
 
-router.get('/:id', function (req, res) {
-    controller.getOne(req, res);
+router.get('/:mode/:order', function (req, res) {
+
+    controller.getB(req, res);
 });
 
 router.put('/:id', function (req, res) {
